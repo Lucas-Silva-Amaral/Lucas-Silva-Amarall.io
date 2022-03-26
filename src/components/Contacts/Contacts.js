@@ -1,8 +1,6 @@
 import React, { useContext, useState } from "react"
 import { Snackbar, IconButton, SnackbarContent } from "@material-ui/core"
 import CloseIcon from "@material-ui/icons/Close"
-import axios from "axios"
-import isEmail from "validator/lib/isEmail"
 import { makeStyles } from "@material-ui/core/styles"
 import {
   FaTwitter,
@@ -27,15 +25,17 @@ import { socialsData } from "../../data/socialsData"
 import { contactsData } from "../../data/contactsData"
 import "./Contacts.css"
 
+import { useForm, validationError } from "@formspree/react"
+
 function Contacts() {
   const [open, setOpen] = useState(false)
-
   const [name, setName] = useState("")
   const [email, setEmail] = useState("")
   const [message, setMessage] = useState("")
-
   const [success, setSuccess] = useState(false)
   const [errMsg, setErrMsg] = useState("")
+
+  const [state, handleSubmit, reset] = useForm("xdobloyk")
 
   const { theme } = useContext(ThemeContext)
 
@@ -128,36 +128,22 @@ function Contacts() {
   }))
 
   const classes = useStyles()
-
-  const handleContactForm = (e) => {
-    e.preventDefault()
-
-    if (name && email && message) {
-      if (isEmail(email)) {
-        const responseData = {
-          name: name,
-          email: email,
-          message: message,
-        }
-
-        axios.post(contactsData.sheetAPI, responseData).then((res) => {
-          console.log("success")
-          setSuccess(true)
-          setErrMsg("")
-
-          setName("")
-          setEmail("")
-          setMessage("")
-          setOpen(false)
-        })
-      } else {
-        setErrMsg("Invalid email")
-        setOpen(true)
-      }
-    } else {
-      setErrMsg("Enter all the fields")
-      setOpen(true)
-    }
+  if (state.succeeded) {
+    return (
+      <>
+        <div
+          onClick={() => setOpen(true)}
+          className="finish__modal"
+          style={{ backgroundColor: theme.secondary, cursor: "pointer" }}
+        >
+          <h1 style={{ color: theme.primary }}>Contato</h1>
+          <h2 className="modal" style={{ backgroundColor: theme.primary }}>
+            Obrigado pelo contato! <br />
+            Responderei assim que possivel!
+          </h2>
+        </div>
+      </>
+    )
   }
 
   return (
@@ -167,10 +153,10 @@ function Contacts() {
       style={{ backgroundColor: theme.secondary }}
     >
       <div className="contacts--container">
-        <h1 style={{ color: theme.primary }}>Contacts</h1>
+        <h1 style={{ color: theme.primary }}>Contato</h1>
         <div className="contacts-body">
           <div className="contacts-form">
-            <form onSubmit={handleContactForm}>
+            <form onSubmit={handleSubmit}>
               <div className="input-container">
                 <label htmlFor="Name" className={classes.label}>
                   Name
