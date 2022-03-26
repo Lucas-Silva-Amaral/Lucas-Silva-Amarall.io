@@ -25,17 +25,14 @@ import { socialsData } from "../../data/socialsData"
 import { contactsData } from "../../data/contactsData"
 import "./Contacts.css"
 
-import { useForm, validationError } from "@formspree/react"
+import { useForm } from "@formspree/react"
 
 function Contacts() {
   const [open, setOpen] = useState(false)
   const [name, setName] = useState("")
   const [email, setEmail] = useState("")
   const [message, setMessage] = useState("")
-  const [success, setSuccess] = useState(false)
-  const [errMsg, setErrMsg] = useState("")
-
-  const [state, handleSubmit, reset] = useForm("xdobloyk")
+  const [state, handleSubmit] = useForm("xdobloyk")
 
   const { theme } = useContext(ThemeContext)
 
@@ -199,24 +196,10 @@ function Contacts() {
 
               <div className="submit-btn">
                 <button type="submit" className={classes.submitBtn}>
-                  <p>{!success ? "Enviar" : "Enviada"}</p>
+                  <p> Enviar</p>
                   <div className="submit-icon">
-                    <AiOutlineSend
-                      className="send-icon"
-                      style={{
-                        animation: !success
-                          ? "initial"
-                          : "fly 0.8s linear both",
-                        position: success ? "absolute" : "initial",
-                      }}
-                    />
-                    <AiOutlineCheckCircle
-                      className="success-icon"
-                      style={{
-                        display: !success ? "none" : "inline-flex",
-                        opacity: !success ? "0" : "1",
-                      }}
-                    />
+                    <AiOutlineSend className="send-icon" />
+                    <AiOutlineCheckCircle className="success-icon" />
                   </div>
                 </button>
               </div>
@@ -248,7 +231,6 @@ function Contacts() {
                   color: theme.secondary,
                   fontFamily: "var(--primaryFont)",
                 }}
-                message={errMsg}
               />
             </Snackbar>
           </div>
