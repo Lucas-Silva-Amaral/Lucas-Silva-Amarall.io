@@ -1,4 +1,4 @@
-import cv from "../assets/pdf/cv.pdf"
+import cv from "../assets/pdf/Lucas_Amaral_CV.pdf"
 import me from "../assets/png/me10.png"
 
 export const headerData = {
