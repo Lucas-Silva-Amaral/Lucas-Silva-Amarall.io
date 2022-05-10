@@ -15,7 +15,7 @@ import {
   FaGitlab,
   FaMediumM,
 } from "react-icons/fa"
-import { AiOutlineSend, AiOutlineCheckCircle } from "react-icons/ai"
+import { AiOutlineSend} from "react-icons/ai"
 import { FiPhone, FiAtSign } from "react-icons/fi"
 import { HiOutlineLocationMarker } from "react-icons/hi"
 
@@ -199,7 +199,7 @@ function Contacts() {
                   <p> Enviar</p>
                   <div className="submit-icon">
                     <AiOutlineSend className="send-icon" />
-                    <AiOutlineCheckCircle className="success-icon" />
+                    
                   </div>
                 </button>
               </div>
